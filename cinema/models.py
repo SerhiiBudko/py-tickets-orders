@@ -109,13 +109,13 @@ class Ticket(models.Model):
                 }
                 raise_exception(error)
 
-            def clean(self):
-                Ticket.validate_ticket_position(
-                    row=self.row,
-                    seat=self.seat,
-                    movie_session=self.movie_session,
-                    raise_exception=ValidationError
-                )
+    def clean(self):
+        Ticket.validate_ticket_position(
+            row=self.row,
+            seat=self.seat,
+            movie_session=self.movie_session,
+            raise_exception=ValidationError
+        )
 
     def save(
         self,
