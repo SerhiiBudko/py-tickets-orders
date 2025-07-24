@@ -84,7 +84,6 @@ class Ticket(models.Model):
     row = models.IntegerField()
     seat = models.IntegerField()
 
-
     @staticmethod
     def validate_ticket_position(
             seat,
@@ -117,7 +116,6 @@ class Ticket(models.Model):
                     movie_session=self.movie_session,
                     raise_exception=ValidationError
                 )
-
 
     def save(
         self,

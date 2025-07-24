@@ -92,9 +92,11 @@ class MovieSessionViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(movie_id=movie_id)
 
         return queryset.annotate(
-            tickets_available=F("cinema_hall__rows")
-                              * F("cinema_hall__seats_in_row")
-                              - Count("tickets")
+            tickets_available=(
+                F("cinema_hall__rows")
+                * F("cinema_hall__seats_in_row")
+                - Count("tickets")
+            )
         )
 
     def get_serializer_class(self) -> type[Serializer]:
@@ -121,7 +123,6 @@ class OrderViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
-
 
     def get_serializer_class(self) -> type[Serializer]:
         if self.action == "list":
